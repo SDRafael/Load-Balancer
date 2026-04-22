@@ -1,24 +1,37 @@
 services:
-  nginx:
+  app1:
     build: ./app1
-    ports: 
-      - 80:9090
-
+    ports:
+      - "8080:80"
     depends_on:
-      - app2
-      - app3
-    networks:
-        - app-net
-  app2:
+      - app2_0
+      - app2_1
+      - app2_2
+      - app3_0
+      - app3_1
+      - app3_2
+
+  app2_0:
     build: .
-    networks:
-      - app-net
-  app3:
+    volumes:
+      - ./app2:/usr/share/nginx/html
+  app2_1:
     build: .
-    networks:
-      - app-net
-  
-networks:
-  app-net:
-    driver: bridge
-    
+    volumes:
+      - ./app2:/usr/share/nginx/html
+  app2_2:
+    build: .
+    volumes:
+      - ./app2:/usr/share/nginx/html      
+  app3_0:
+    build: .
+    volumes:
+      - ./app3:/usr/share/nginx/html
+  app3_1:
+    build: .
+    volumes:
+      - ./app3:/usr/share/nginx/html      
+  app3_2:
+    build: .
+    volumes:
+      - ./app3:/usr/share/nginx/html      
