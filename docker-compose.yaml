@@ -11,9 +11,12 @@ services:
     build: .
     volumes:
       - ./app2:/usr/share/nginx/html
+    hostname: aplicativo2
         
   app3:
     build: .
     volumes:
       - ./app3:/usr/share/nginx/html
+    hostname: aplicativo3
+
   
