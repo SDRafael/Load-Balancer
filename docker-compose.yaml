@@ -19,4 +19,13 @@ services:
       - ./app3:/usr/share/nginx/html
     hostname: aplicativo3
 
-  
+  dsnmasq:
+    volumes:
+      - ./dnsmasq.conf:/etc/dnsmasq.conf
+    ports:
+      - 53:53/udp
+    cap_add:
+      - NET_ADMIN
+    networks:
+      default:
+        ipv4_address: 172.16.1.1
