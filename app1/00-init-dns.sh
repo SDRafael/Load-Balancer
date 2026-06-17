@@ -1,13 +1,23 @@
 #!/bin/sh
 
-until getent hosts aplicativo2.dns
-do
-    sleep 1
-done
+echo "Verificando DNS..."
 
-until getent hosts aplicativo3.dns
+for host in aplicativo2.dns aplicativo3.dns
 do
-    sleep 1
-done
+    COUNT=0
 
-nginx -g "daemon off;"
+    until getent hosts "$host" >/dev/null 2>&1
+    do
+        COUNT=$((COUNT+1))
+
+        if [ $COUNT -ge 30 ]
+        then
+            echo "$host não resolveu."
+            break
+        fi
+
+        sleep 1
+    done
+
+    echo "$host OK"
+done
